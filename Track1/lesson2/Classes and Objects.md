@@ -27,7 +27,7 @@ class GoodDog
 end
 ```
 
-``@name`` is called instance variable. It;s a variable that exist as long as the object instance exist ans it's one of the way we tie data to objrcts.
+``@name`` is called instance variable. It's a variable that exist as long as the object instance exist ans it's one of the way we tie data to objrcts.
 Use: 
 
 ```ruby
@@ -89,7 +89,7 @@ class GoodDog
   end
   
   def speak
-    "#{@name} says arf!!"
+    "#{name} says arf!!"
   end
   
 end
@@ -107,7 +107,7 @@ puts sparky.name            # => "Spartacus"
 class GoodDog
   attr_accessor :name
   
-  def intialize(anme)
+  def intialize(name)
     @name = name
   end
   
@@ -118,3 +118,59 @@ The `attr_accessor`method takes a symbol as an argument, which it use to create 
 
 ####All the `attr_*`method take a `Symbol` as parameters
 	attr_accessor :name, :height, :weight
+	
+###For setter
+```ruby
+def change_info(n ,h, w)
+  name = n  #try to use setter method but not work!!!
+  height = h
+  weight = w
+end
+
+```
+Ruby will treat it as an local varialbe declare, not what we want to do
+so to need to add `self` keyword
+
+```ruby
+def change_info(n, h, w)
+  self.name = n
+  self.height = h
+  self.weight w
+end
+```
+We can also add `self` before the getter but it's not **necessary**.
+
+
+###Final Version of Class
+
+```ruby
+class GoodDog
+  attr_accessor :name, :height, :weight
+
+  def initialize(n, h, w)
+    @name = n
+    @height = h
+    @weight = w
+  end
+
+  def speak
+    "#{name} says arf!"
+  end
+
+  def change_info(n, h, w)
+    self.name = n
+    self.height = h
+    self.weight = w
+  end
+
+  def info
+    "#{name} weighs #{weight} and is #{height} tall."
+  end
+end
+
+sparky = GoodDog.new('Sparky', '12 inches', '10 lbs')
+puts sparky.info      # => Sparky weighs 10 lbs and is 12 inches tall.
+
+sparky.change_info('Spartacus', '24 inches', '45 lbs')
+puts sparky.info      # => Spartacus weighs 45 lbs and is 24 inches tall.
+```

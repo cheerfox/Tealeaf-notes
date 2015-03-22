@@ -3,6 +3,9 @@
 1. Methods contain behaviors
 2. Instance variables contain states
 3. Object are **instantiated** from classes, and contain states and behaviors
+4. The instance varaible of a class can also be a class
+5. Don't use the same name as the instance varaible when you name the local varaible or it will get confused if it's a getter or local variable.
+6. If you have some magic number which appear mutiple times in your program, try to make it as a **Constant varaible**
 
 ###Always use getter and setter instead using instance variable directly, In that way, we can have chance to do another type of getter and setter for some check in setter or some different display in getter
 
@@ -55,7 +58,7 @@ end
 ```
 
 ##Mixin
-
+Use ofr multiple inheritance, just like inject common behaviors to the class, use `include` key words
 
 
 ##Tips for OOP BalckJack Game
@@ -126,5 +129,6 @@ Blackjack.new.run
 
 
 ```
+
 
 

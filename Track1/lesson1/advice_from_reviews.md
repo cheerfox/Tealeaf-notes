@@ -7,4 +7,5 @@
 6. Leave only **one blank line** between two method or class or logic block
 7. Remember to delete the **unecessary blank lines**
 8. It is important to signify if the variable is singular or plural by using the varaible name correctly
-ex: suit ro suits 
+ex: suit ro suits
+9. **Do not define lomg method!!!!**

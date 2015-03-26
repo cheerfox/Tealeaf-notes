@@ -3,6 +3,7 @@
 2. `singleton class` is a class which shadow a object, so we can defin'e a method for a object, it will define at singleton class
 3. **class method** will also be inheritance~~
 4. By default method invokation will automatically prepend the `self` key word, so if `a_method` method invokation is the same as `self.a_method`
+5. class is also a constant, every word begin with uppercase is constant
 
 ```ruby
 class Vehicle

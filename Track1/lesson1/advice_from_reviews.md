@@ -8,4 +8,5 @@
 7. Remember to delete the **unecessary blank lines**
 8. It is important to signify if the variable is singular or plural by using the varaible name correctly
 ex: suit ro suits
-9. **Do not define lomg method!!!!**
+9. **Do not define long method!!!!**
+10. Extract the magic number in your code in to `Constant`

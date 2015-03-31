@@ -21,3 +21,14 @@ Unobtrusice javascript means we grab javascript code out out our html code to an
 
 ##DOM
 
+
+
+##Need to know
+- The different between client side code and server siede code
+- what DOM means
+- unobtrusive javascript and how to use jQery to manipulate DOM
+- What ajax is and why to issue Ajax requests
+- Using jQery to issue Ajax request
+- handing ajax requset on server side
+- handling ajax response in client side
+- dealing with re-binding issue when the DOM is changed

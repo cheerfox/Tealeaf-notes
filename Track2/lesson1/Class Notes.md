@@ -1,3 +1,8 @@
+##Docs
+1. http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
+2. http://guides.rubyonrails.org/routing.html
+3. http://guides.rubyonrails.org/layouts_and_rendering.html
+
 ##Bundle
 Bundle deal with the gem version varity among many rails projects.
 **Bundle install gem into a sandbox individually for every each project**.
@@ -24,6 +29,8 @@ We use sqlite3 database in rails deafault, **the database of sqlite3 is a file**
  - Use `rvm gemset` individual from each projects
  - Every time you can the schema or database try that in rails console to check if it is woking correctly
  - id to id , object to object
+ - `rake db:migrate` just go to see in the database and see the migration version record and find out which migration file hasn't been migrate, then update the record in database
+ - use `reload!` in the rails console after you change your model related files
  
 ```ruby
 def index
@@ -40,7 +47,7 @@ end
 
 
 #Add migration
-1. `rails g migration create_users` gernerate a migration file for create a users table (DB layer)
+1. `rails g migration create_users` gernerate a migration file for create a users table (DB layer), the migration name can be anything, but if you use create_tablename, then rails will recognize it, and automatically add create_table function in your migration file
 2. add `t.string :username` and `t.timestamps`in the migration file, and execute `rake db_migrate` then the table has been create (DB layer)
 3. Then the `model layer`, create a file called `user.rb` (model layer)
 4. `timestamps` in the migration file automatically add the `create_at` and `update_at` these two attribute to the table, remeber to user `timestamps`
@@ -49,6 +56,10 @@ end
 7. Make sure your migration run cleanly and not impact to each other end to end
 8. `migration` is **Modify the schema of a database in a sysytematic way**
 9. **Don't go to change the past migration** it will cause some conflict
+10. In rails there is a table record which migration you have already migrated, so don't use migration roll back, you will get conflict when you work with your co-worker
+11. So don't modify the migration file, just add migtation
+12. Use migration to insure the correct schema changes process between several mechines
+13. You alao can chage the schema without migration, but **Don't do that ~~**
 
 ```ruby
 ##user.rb
@@ -85,6 +96,99 @@ You can even do this `post.user.posts`
 ![](http://d3ncao0pifc37i.cloudfront.net/images/1-M_association.png)
 
 
-#ActiveRecord pattern
+##ActiveRecord pattern
 ![](http://d3ncao0pifc37i.cloudfront.net/images/ar_db_connection.jpg)
+
+##M-M relation
+###habtm vs hmt(Always use hmt)
+1. has_and_belongs_to_many
+	- no join model
+	- implicit joim table at db layer call table1_name_table2_name
+	- Problems : can't put additional attribute on join table
+2. has_many :through
+	- has a join model
+	- can put additional attribute on join table
+
+- Use `'PostCategory'.tableize` to figure out the table name default in rails
+
+![](http://d3ncao0pifc37i.cloudfront.net/images/M-M_association.png)
+
+1. First create a join table with both primary keys in the join table
+2. set association
+
+```ruby
+#post.rb
+class Post < ActiveRecord::Base
+	has_many :post_catogories    
+	has_many :categories,   through: :post_categories   #This line is dependent to the last line so it can't appear before the last line
+end
+
+#post_category.rb
+class PostCategory < ActiveReord::Base
+	belongs_to :post
+	belongs_to :category
+end
+
+#category.rb
+class Category < ActiveRecord::Base
+	has_many :post_categories
+	has_many :posts, through: :post_categories
+end
+```
+##Routes and Resource
+
+```ruby
+#In routes.rb
+PostitTemplate::Application.routes.draw do
+
+	get '/posts', to: 'posts#index'
+	get '/posts/:id', to: 'posts#show'  #':id' you can also choose antoher name like ':whatever', and you can access it use 'params[:whatever]', this is the informations from the url
+	get '/posts/new', to: 'posts#new'
+	post '/posts', to: 'post#create'
+	get '/posts/:id/edit', to: 'posts#edit'
+	patch '/posts/:id', to: 'posts#update'
+	
+	##You can replace above by use this below
+	resources :posts, except: [:destroy]
+
+end
+
+```
+Do not to expose the unecessary url, just use `excpet: [:action]` or `only: [:action]`
+
+##Partial
+The file name of the partial muse be strated with `_` like `_form.html.erb`
+
+```ruby
+	<%= render 'shared/content_title', title: '@post.title'   #=> This means you have a partial called _content_title.html.erb in your shared folder in views folder, and has a local variable called title.
+
+```
+
+If you have an array of object need to pass in the partial then
+
+```ruby
+<%= render @posts =%>  #=> look for the partoal in views/posts/_post.html.erb, them it will pass the element of array one by one to the partial
+```
+The code in Line1 is equal to belows code
+
+```ruby
+<% @post.each do |post| %>
+	<%= render 'posts/post', post: post =%>
+<% end %>
+```
+
+
+##Work flow
+1. build the view individually
+2. Extract the common pattern to the partials like below
+
+```ruby
+
+
+```
+
+
+
+
+
 

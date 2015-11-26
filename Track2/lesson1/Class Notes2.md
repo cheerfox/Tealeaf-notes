@@ -102,6 +102,8 @@ end
 validates :title, presence: true
 
 ```
+**Validation will be trigger when hiiting to the database**
+
 Above why do we use **render** except using **redirect_to** because **error messages is on the @post instance varaible so if we use redirect_to it will create a new request and the instance error message will disappear**
 
 ##form_for method
@@ -142,13 +144,10 @@ Then if you submit the category_ids will be in the post hash in params hash
 
 ##Helper
 extract the comment logic to helper
+Use in some presentation level of data
 
 ##non backed model form VS backed model form
 Model backed forms are useful when performing "CRUD" actions on a resource, and non-model backed form helpers are used everywhere else. 
 
-####todo
-1. create action of comment
-2. new comment form in post show
-3. error partial on comment form
-4. add fix_url to application helper method  
-5. play with check box helper
+#Very imprtant
+![](http://d3ncao0pifc37i.cloudfront.net/images/where_does_code_go.png)

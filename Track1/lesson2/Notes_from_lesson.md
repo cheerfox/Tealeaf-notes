@@ -132,3 +132,5 @@ Blackjack.new.run
 
 
 
+##Enumerable
+If you define a `each` to tell Enuerable how to iterate in your collection then you can mixin the `Enumerable`in your class then you can use all the method in your class 
